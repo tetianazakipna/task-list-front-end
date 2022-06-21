@@ -10,6 +10,10 @@ const Task = (props) => {
     props.completeCallback(props.id);
   };
 
+  const deleteOneTask = () => {
+    props.deleteCallback(props.id);
+  };
+
   return (
     <li className="tasks__item">
       <button
@@ -18,7 +22,7 @@ const Task = (props) => {
       >
         {props.title}
       </button>
-      <button className="tasks__item__remove button">x</button>
+      <button className="tasks__item__remove button" onClick={deleteOneTask}>x</button>
     </li>
   );
 };
@@ -28,6 +32,7 @@ Task.propTypes = {
   title: PropTypes.string.isRequired,
   isComplete: PropTypes.bool.isRequired,
   completeCallback: PropTypes.func,
+  deleteCallback: PropTypes.func,
 };
 
 export default Task;

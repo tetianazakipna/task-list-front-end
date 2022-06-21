@@ -19,11 +19,23 @@ const TASKS = [
 const App = () => {
   const [tasks, setTasks] = useState(TASKS);
 
+
   const markComplete = (id) => {
-    const newTasks = [...tasks];
+    const newTasks = tasks.map((task) => ({...task}));
     for (let task of newTasks) {
       if (task.id === id) {
         task.isComplete = !task.isComplete;
+      }
+    }
+    setTasks(newTasks);
+  };
+
+  const deleteTask = (id) => {
+    const newTasks = [];
+    for (let task of tasks) {
+      const newTask = {...task};
+      if (newTask.id !== id) {
+        newTasks.push(newTask);
       }
     }
     setTasks(newTasks);
@@ -36,7 +48,9 @@ const App = () => {
       </header>
       <main>
         <div>
-          <TaskList tasks={TASKS} completeCallback={markComplete} />
+          <TaskList tasks={tasks} 
+                    completeCallback={markComplete} 
+                    deleteCallback={deleteTask}/>
         </div>
       </main>
     </div>

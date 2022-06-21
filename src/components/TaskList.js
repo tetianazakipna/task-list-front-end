@@ -12,6 +12,7 @@ const TaskList = (props) => {
         title={task.title}
         isComplete={task.isComplete}
         completeCallback={props.completeCallback}
+        deleteCallback={props.deleteCallback}
       />
     );
   });
@@ -20,6 +21,7 @@ const TaskList = (props) => {
 
 TaskList.propTypes = {
   completeCallback: PropTypes.func,
+  deleteCallback: PropTypes.func,
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
