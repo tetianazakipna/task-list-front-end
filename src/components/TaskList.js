@@ -10,8 +10,10 @@ const TaskList = (props) => {
         key={task.id}
         id={task.id}
         title={task.title}
+        description={task.description}
         isComplete={task.isComplete}
         completeCallback={props.completeCallback}
+        incompleteCallback={props.incompleteCallback}
         deleteCallback={props.deleteCallback}
       />
     );
@@ -21,11 +23,13 @@ const TaskList = (props) => {
 
 TaskList.propTypes = {
   completeCallback: PropTypes.func,
+  incompleteCallback: PropTypes.func,
   deleteCallback: PropTypes.func,
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
       isComplete: PropTypes.bool.isRequired,
     })
   ).isRequired,

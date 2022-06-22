@@ -10,6 +10,10 @@ const Task = (props) => {
     props.completeCallback(props.id);
   };
 
+  const flipTaskIncomplete = () => {
+    props.incompleteCallback(props.id);
+  };
+
   const deleteOneTask = () => {
     props.deleteCallback(props.id);
   };
@@ -18,11 +22,14 @@ const Task = (props) => {
     <li className="tasks__item">
       <button
         className={`tasks__item__toggle ${buttonClass}`}
-        onClick={flipTaskComplete}
+        onClick={props.isComplete ? flipTaskIncomplete : flipTaskComplete}
       >
         {props.title}
       </button>
-      <button className="tasks__item__remove button" onClick={deleteOneTask}>x</button>
+      <p>{props.description}</p>
+      <button className="tasks__item__remove button" onClick={deleteOneTask}>
+        x
+      </button>
     </li>
   );
 };
@@ -31,7 +38,9 @@ Task.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   isComplete: PropTypes.bool.isRequired,
+  description: PropTypes.string.isRequired,
   completeCallback: PropTypes.func,
+  incompleteCallback: PropTypes.func,
   deleteCallback: PropTypes.func,
 };
 
