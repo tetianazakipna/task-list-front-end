@@ -3,13 +3,14 @@ import TaskList from './components/TaskList.js';
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import TaskForm from './components/TaskForm.js';
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
 
   const URL = 'https://task-list-api-c17.herokuapp.com/tasks';
 
-  useEffect(() => {
+  const fetchTasks = () => {
     axios
       .get(URL)
       .then((result) => {
@@ -26,7 +27,8 @@ const App = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  };
+  useEffect(fetchTasks, []);
 
   const markComplete = (id) => {
     axios
@@ -80,12 +82,16 @@ const App = () => {
       });
   };
 
-  // const postTask = (titleText, description) => {
-  //   axios.post(URL, { title: titleText, description: description })
-  //   .then(() => {
-
-  //   })
-  // }
+  const addTask = (taskInfo) =>{
+    axios.post(URL, taskInfo)
+      .then((response) => {
+        console.log(response);
+        fetchTasks();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="App">
@@ -99,6 +105,9 @@ const App = () => {
             completeCallback={markComplete}
             incompleteCallback={markIncomplete}
             deleteCallback={deleteTask}
+          />
+          <TaskForm
+            addTask={addTask}
           />
         </div>
       </main>
